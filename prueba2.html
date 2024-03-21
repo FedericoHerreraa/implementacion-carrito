@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanna's burguer</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0
+        }
+
+        #contenedor {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            justify-content: center;
+            gap: 60px;
+            margin: 0 auto;
+            width: 60%;
+            margin-top: 60px
+        }
+
+        #titulo {
+            color: black;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 700px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 40px;
+            padding-top: 40px
+        }
+
+        .producto {
+            border-left: 4px solid rgb(232, 232, 232);
+            width: 500px;
+            margin-bottom: 20px;
+            padding: 0 20px 5px;
+            min-height: 200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s
+        }
+
+        .prodContainer {
+            transition: all 0.2s;
+        }
+
+        .producto:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .producto h1 {
+            margin-bottom: 0;
+            font-weight: 900;
+            font-size: 25px;
+            font-family: monospace;
+        }
+
+
+        .btnAgregar {
+            padding: 7px 17px;
+            background: none;
+            border: 1px solid grey;
+            border-radius: 5px;
+            color: black;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .btnAgregar:hover {
+            background-color: rgb(220, 220, 220);
+            border-color: rgb(220, 220, 220);
+        }
+
+        .btnEliminar {
+            margin-top: 10px;
+            background-color: brown;
+            padding: 4px 10px;
+            color: white;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .btnProd {
+            background: none;
+            padding: 3px 10px;
+            border-radius: 5px;
+            color: black;
+            border: none;
+            border: 1px solid brown;
+            cursor: pointer
+        }
+
+        .btnProd:hover {
+            background-color: rgb(189, 189, 189)
+        }
+
+        .btnProd2 {
+            background-color: rgb(204, 204, 204);
+            padding: 3px 10px;
+            border-radius: 5px;
+            color: black;
+            border: none;
+            border: 1px solid grey;
+            transition: all 0.2s;
+            cursor: pointer
+        }
+
+        .btnProd2:hover {
+            background-color: rgb(161, 161, 161);
+        }
+
+        .prodImg {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 150px;
+            height: 150px;
+            border-radius: 5px;
+        }
+
+        .prodCarrito {
+            border: 1px solid #d8d8d8;
+            margin: 10px;
+            width: 100%;
+            max-width: 755px;
+            min-height: 80px;
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px
+        }
+
+        #carritoSection {
+            min-height: 300px;
+        }
+
+        #containerMostrarCart {
+            display: flex;
+            justify-content: flex-start;
+            border-bottom: 1px solid rgb(122, 42, 42);
+            width: 100%;
+            margin: 50px auto 0
+        }
+
+        #btnMostrarCarrito {
+            padding: 10px 25px;
+            background: none;
+            border: none;
+            margin-bottom: 20px;
+            font-size: 22px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: rgb(189, 88, 88);
+            font-weight: 600;
+            background-color: #ecebeb;
+            color: black
+        }
+
+        #btnMostrarCarrito:hover {
+            background-color: #ecebeb;
+            color: black
+        }
+
+        #btnVaciarCarrito {
+            padding: 10px 25px;
+            background: none;
+            border: none;
+            margin-bottom: 20px;
+            margin-top: 30px;
+            font-size: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            background-color: #cfcfcf;
+            color: black;
+            transition: all 0.2s;
+        }
+
+        #btnVaciarCarrito:hover {
+            background-color: #b4b3b3;
+            border-color: #b4b3b3;
+            color: black
+        }
+
+        .textarea,
+        .input {
+            width: 300px;
+            padding: 10px;
+            border: none;
+            border-bottom: 1px solid white;
+            border-radius: 2px;
+            margin-bottom: 30px;
+            background-color: rgb(44, 44, 44);
+            color: white;
+        }
+
+        .textarea {
+            border: 1px solid white;
+            border-radius: 5px
+        }
+
+        #menuSection {
+            min-height: 900px;
+            margin-bottom: 40px;
+        }
+
+        #formSection {
+            margin-top: 30px;
+            padding-top: 70px;
+            background-color: white;
+        }
+
+        #form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgb(44, 44, 44);
+            width: 50%;
+            margin: 0 auto;
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #btnEnviarPedido {
+            padding: 10px 25px;
+            background: none;
+            border: 1px solid grey;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 30px;
+            margin-bottom: 40px
+        }
+
+        #btnEnviarPedido:hover {
+            background-color: black;
+            border-color: black;
+            color: white
+        }
+
+        #prodDesc {
+            font-size: 17px;
+        }
+
+        #form h1 {
+            color: rgb(209, 207, 207);
+            margin-bottom: 60px;
+            margin-top: 30px;
+            font-family: monospace;
+            font-size: 30px;
+        }
+
+        #filtros {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        #contBtnFilt {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btnFiltro {
+            padding: 5px 15px;
+            background: none;
+            border: 1px solid rgb(231, 231, 231);
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 10px;
+            margin-bottom: 40px;
+            color: black
+        }
+
+        .btnFiltro:hover {
+            background-color: rgb(231, 231, 231);
+        }
+
+        @media screen and (max-width: 768px) {
+            #contenedor {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .producto {
+                width: 300px;
+                padding: 0px 10px 2px;
+            }
+
+            #titulo {
+                text-align: center;
+            }
+
+            .prodImg {
+                margin-left: 5px;
+                height: 120px;
+                width: 120px;
+            }
+
+            #form {
+                width: 90%;
+            }
+
+            #form h1 {
+                font-size: 23px;
+            }
+
+            .input,
+            .textarea {
+                width: 250px;
+            }
+
+            #prodDesc {
+                font-size: 13px;
+            }
+
+            #contBtnFilt {
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section id="menuSection">
+        <h1 id="titulo">Menu de comidas</h1>
+        <div id="filtros">
+            <div>
+                <h2 style="font-weight: 300;">Filtrar por categoría:</h2>
+            </div>
+            <div id="contBtnFilt">
+                <button class="btnFiltro" onclick="filtrarProds('todos', this)">Todos</button>
+                <button class="btnFiltro" onclick="filtrarProds('hamburguesa', this)">Hamburguesas</button>
+                <button class="btnFiltro" onclick="filtrarProds('milanesa', this)">Milanesas</button>
+                <button class="btnFiltro" onclick="filtrarProds('pizza', this)">Pizzas</button>
+                <button class="btnFiltro" onclick="filtrarProds('pasta', this)">Pastas</button>
+            </div>
+        </div>
+        <main id="contenedor"></main>
+    </section>
+
+    <section id="carritoSection">
+        <div id="containerMostrarCart">
+            <button id="btnMostrarCarrito" onclick="toggleCarrito()">Mostrar carrito</button>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; padding: 10px;">
+            <section id="carrito"></section>
+            <button id="btnVaciarCarrito" onclick="vaciarCarrito()">Vaciar carrito</button>
+            <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
+                <p style="font-size: 20px; color: #0a0a0a;">Total de compra: <span id="total"></span></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="formSection">
+        <form action="" id="form" onsubmit="enviarWpp(event)">
+            <h1>¡Confirmá tu pedido aca!</h1>
+            <input required type="text" id="nombre" placeholder="Nombre completo" class="input">
+            <input required type="email" id="correo" placeholder="Correo electronico" class="input">
+            <input required type="text" id="direccion" placeholder="Dirección de envío" class="input">
+            <input required type="number" id="telefono" placeholder="Telefono de contacto" class="input">
+            <textarea cols="30" rows="10" id="observaciones" placeholder="Consultas/Observaciones"
+                class="textarea"></textarea>
+            <input type="submit" id="btnEnviarPedido" value="Enviar pedido">
+        </form>
+    </section>
+
+    <script>
+        //funciones para la logica del menu y carrito
+        const carrito = [];
+        const carritoContainer = document.getElementById("carrito");
+        const contenedor = document.getElementById('contenedor');
+        const btnVaciarCarrito = document.getElementById('btnVaciarCarrito');
+        const btnFiltro = document.querySelector(".btnFiltro")
+        const productos = [
+            { nombre: 'Fideos', precio: 100, descripcion: 'Fideos a la boloñesa con macarrones', imagen: 'https://res.cloudinary.com/dikdtnj2b/image/upload/v1710973834/fideos_mu1wdr.png', cantidad: 0, categoria: 'pasta' },
+            { nombre: 'Hamburguesa', precio: 100, descripcion: 'Hamburguesa con tomate, huevo y salsa', imagen: 'https://res.cloudinary.com/dikdtnj2b/image/upload/v1710973863/hamburguesa_mugrkn.png', cantidad: 0, categoria: 'hamburguesa' },
+            { nombre: 'Pizza', precio: 100, descripcion: 'Pizza con tomate, huevo y salsa', imagen: 'https://res.cloudinary.com/dikdtnj2b/image/upload/v1710973887/pizza_hfm8w0.png', cantidad: 0, categoria: 'pizza' },
+            { nombre: 'Milanesa', precio: 100, descripcion: 'Milanesa con tomate, huevo y salsa', imagen: 'https://res.cloudinary.com/dikdtnj2b/image/upload/v1710973877/milanesa_kjb1z9.png', cantidad: 0, categoria: 'milanesa' },
+            { nombre: 'Pizza', precio: 100, descripcion: 'Pizza con tomate, huevo y salsa', imagen: 'https://res.cloudinary.com/dikdtnj2b/image/upload/v1710973887/pizza_hfm8w0.png', cantidad: 0, categoria: 'pizza' },
+            { nombre: 'Milanesa', precio: 100, descripcion: 'Milanesa con tomate, huevo y salsa', imagen: 'https://res.cloudinary.com/dikdtnj2b/image/upload/v1710973877/milanesa_kjb1z9.png', cantidad: 0, categoria: 'milanesa' },
+            { nombre: 'Pizza', precio: 100, descripcion: 'Pizza con tomate, huevo y salsa', imagen: 'https://res.cloudinary.com/dikdtnj2b/image/upload/v1710973887/pizza_hfm8w0.png', cantidad: 0, categoria: 'pizza' },
+            { nombre: 'Milanesa', precio: 100, descripcion: 'Milanesa con tomate, huevo y salsa', imagen: 'https://res.cloudinary.com/dikdtnj2b/image/upload/v1710973877/milanesa_kjb1z9.png', cantidad: 0, categoria: 'milanesa' },
+        ];
+
+        mostrarProductos(productos)
+        calcularTotal();
+        toggleCarrito();
+
+        function mostrarProductos(arrayProds) {
+            arrayProds.forEach((producto, index) => {
+                const divProducto = document.createElement('div');
+                divProducto.classList.add("producto");
+                divProducto.innerHTML = `
+                    <div class="prodContainer">
+                        <h1>${producto.nombre}</h1>
+                        <p id="prodDesc">${producto.descripcion}</p>
+                        <p style="font-weight: 600;">$${producto.precio}</p>
+                        <div style="width: 140px; display: flex; flex-direction: column;">
+                            <div style="display: flex; height: 20px; align-items: center; justify-content: space-between;">
+                                <button class="btnProd2" onclick="incrementar(${index})">+</button>
+                                <p style="width: 20px;" id="cantidad-${index}">${producto.cantidad}</p>
+                                <button class="btnProd2" onclick="decrementar(${index})">-</button>
+                            </div>
+                            <button class="btnAgregar" onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, '${producto.descripcion}', ${index})">Agregar al carrito</button>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="${producto.imagen}" alt="Imagen producto" title="${producto.nombre}" class="prodImg">
+                    </div>
+                `;
+                contenedor.appendChild(divProducto);
+            });
+        }
+
+        function cambiarColorBoton(btn) {
+            let botones = document.getElementsByClassName("btnFiltro");
+            for (let i = 0; i < botones.length; i++) {
+                botones[i].style.backgroundColor = "#ffffff";
+            }
+            btn.style.backgroundColor = "rgb(231, 231, 231)";
+        }
+
+        function filtrarProds(categoria, btn) {
+            cambiarColorBoton(btn)
+            contenedor.innerHTML = '';
+            if (categoria === 'todos') {
+                mostrarProductos(productos);
+            } else {
+                const prodFiltrados = productos.filter(prod => prod.categoria === categoria)
+                mostrarProductos(prodFiltrados);
+            }
+
+            productos.forEach((producto, index) => {
+                document.getElementById(`cantidad-${index}`).innerText = 0;
+                producto.cantidad = 0;
+            });
+        }
+
+        function incrementar(index) {
+            productos[index].cantidad++;
+            document.getElementById(`cantidad-${index}`).innerText = productos[index].cantidad;
+        }
+
+        function decrementar(index) {
+            if (productos[index].cantidad > 0) {
+                productos[index].cantidad--;
+                document.getElementById(`cantidad-${index}`).innerText = productos[index].cantidad;
+            }
+        }
+
+        function mostrarCarrito() {
+            carritoContainer.innerHTML = "";
+            if (carrito.length === 0) {
+                carritoContainer.innerHTML = `
+                    <div style="margin-bottom: 20px;">
+                        <h3>No tienes ningún producto aquí...</h3>
+                    </div>
+                `;
+            } else {
+                carrito.forEach(producto => {
+                    carritoContainer.innerHTML += `
+                <div class="prodCarrito">
+                    <div>
+                        <h2 style="font-family: monospace;">${producto.nombre}</h2>
+                        <h5>${producto.descripcion}</h5>
+                    </div>
+                    <div>
+                        <p style="font-size: 12px;">Cantidad: ${producto.cantidad}</p>
+                        <div style="display: flex; gap: 10px; margin-top: 15px;">
+                            <button class="btnProd" onclick="incrementarProd(${carrito.indexOf(producto)})">+</button>
+                            <button class="btnProd" onclick="restarProd(${carrito.indexOf(producto)})">-</button>
+                        </div>
+                        <button class="btnEliminar" onclick="eliminarProd(${carrito.indexOf(producto)})">Eliminar</button>
+                    </div>
+                </div>
+            `;
+                });
+            }
+            document.getElementById("carrito").style.display = "block";
+        }
+
+        function toggleCarrito() {
+            const btnMostrarCarrito = document.getElementById("btnMostrarCarrito");
+
+            if (carritoContainer.style.display === "block") {
+                carritoContainer.style.display = "none";
+                btnVaciarCarrito.style.display = "none";
+                btnMostrarCarrito.textContent = `Mostrar carrito (${carrito.length})`;
+            } else {
+                mostrarCarrito();
+                btnVaciarCarrito.style.display = "block";
+                btnMostrarCarrito.textContent = "Ocultar carrito";
+            }
+        }
+
+        function agregarAlCarrito(nombre, precio, descripcion, index) {
+            const cantidad = productos[index].cantidad;
+            if (cantidad === 0) {
+                alert('Antes de agregar el producto debes elegir la cantidad');
+                return;
+            }
+            let existe = false;
+            if (carrito.length === 0) {
+                carrito.push({
+                    nombre,
+                    precio,
+                    descripcion,
+                    cantidad
+                });
+            } else {
+                for (let i = 0; i < carrito.length; i++) {
+                    if (carrito[i].nombre === nombre) {
+                        carrito[i].cantidad = carrito[i].cantidad + cantidad;
+                        existe = true;
+                    }
+                }
+                if (!existe) {
+                    carrito.push({
+                        nombre,
+                        precio,
+                        descripcion,
+                        cantidad
+                    });
+
+                }
+            }
+            toggleCarrito();
+            calcularTotal();
+            let mensaje = "Carrito de compras:\n";
+            const totalCont = document.getElementById("total");
+            const total = totalCont.textContent;
+            if (carrito.length === 0) {
+                mensaje += "¡El carrito está vacío!";
+            } else {
+                carrito.forEach(producto => {
+                    mensaje += `- ${producto.nombre}: ${producto.cantidad} x $${producto.precio}\n`;
+                });
+                mensaje += `\nTotal: ${total}`;
+                mensaje += '\n';
+                mensaje += '\n(Para ver o modificar el carrito continue a la siguiente sección)';
+            }
+            alert(mensaje);
+            document.getElementById(`cantidad-${index}`).innerText = 0;
+            productos[index].cantidad = 0;
+            toggleCarrito();
+        }
+
+        function restarProd(index) {
+            if (carrito[index].cantidad > 1) {
+                carrito[index].cantidad--;
+            } else {
+                carrito.splice(index, 1);
+            }
+            mostrarCarrito();
+            calcularTotal();
+        }
+
+        function eliminarProd(index) {
+            carrito.splice(index, 1);
+            mostrarCarrito();
+            calcularTotal();
+        }
+
+        function incrementarProd(index) {
+            carrito[index].cantidad++;
+            mostrarCarrito();
+            calcularTotal();
+        }
+
+        function calcularTotal() {
+            const totalCont = document.getElementById("total");
+            totalCont.style.color = "#0a0a0a"
+            let total = 0;
+            carrito.forEach(prod => {
+                if (prod.cantidad > 1) {
+                    total += prod.cantidad * prod.precio;
+                } else {
+                    total += prod.precio
+                }
+            })
+            if (total === 0) {
+                totalCont.textContent = '$0';
+                return;
+            }
+            totalCont.innerHTML = `$${total}`
+        }
+
+        function vaciarCarrito() {
+            carrito.length = 0;
+            mostrarCarrito();
+            toggleCarrito();
+            calcularTotal();
+        }
+
+        //funciones para la logica del checkout
+        function enviarWpp(e) {
+            e.preventDefault();
+            const nombreInput = document.getElementById("nombre");
+            const correoInput = document.getElementById("correo");
+            const direccionInput = document.getElementById("direccion");
+            const telefonoInput = document.getElementById("telefono");
+            const observacionesInput = document.getElementById("observaciones");
+
+            const nombre = nombreInput.value;
+            const correo = correoInput.value;
+            const direccion = direccionInput.value;
+            const telefono = telefonoInput.value;
+            const observaciones = observacionesInput.value.trim();
+
+            let mensajePedido = "Hola, quiero realizar el siguiente pedido:\n";
+            carrito.forEach((producto) => {
+                mensajePedido += `${producto.cantidad}x ${producto.nombre}`;
+                mensajePedido += '\n';
+            });
+            mensajePedido += "\nDetalles del cliente:\n";
+            mensajePedido += `Nombre: ${nombre}\nCorreo: ${correo}\nDirección: ${direccion}\nTeléfono: ${telefono}`;
+            if (observaciones !== '') {
+                mensajePedido += `\nObservaciones: ${observaciones}`;
+            }
+
+            if (carrito.length === 0) {
+                alert('No tienes ningun producto agregado en el carrito!');
+                return;
+            }
+
+            const numeroTelefono = "5491162964493";
+            const urlWhatsApp = `https://wa.me/${numeroTelefono}?text=${encodeURIComponent(mensajePedido)}`;
+
+            // Limpiar los campos de entrada
+            nombreInput.value = '';
+            correoInput.value = '';
+            direccionInput.value = '';
+            telefonoInput.value = '';
+            observacionesInput.value = '';
+
+            // Abrir la ventana de WhatsApp
+            window.open(urlWhatsApp, '_blank');
+        }
+    </script>
+</body>
+
+</html>
